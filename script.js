@@ -1,5 +1,4 @@
 // Math functions
-
 function add(a, b) {
     return a + b;
 }
@@ -16,7 +15,20 @@ function divide(a, b) {
     return a / b;
 }
 
-console.log(add(10, 2))
-console.log(subtract(10, 2))
-console.log(multiply(10, 2))
-console.log(divide(10, 2))
+// Take operator to make a calculation
+function operate(operator, numOne, numTwo) {
+    if (operator === 'add') {
+        return add(numOne, numTwo);
+    }
+    else if (operator === 'subtract') {
+        return subtract(numOne, numTwo);
+    }
+    else if (operator === 'multiply') {
+        return multiply(numOne, numTwo);
+    }
+    else if (operator === 'divide') {
+        return divide(numOne, numTwo);
+    }
+}
+
+console.log(operate('add', 23, 33));
