@@ -31,4 +31,14 @@ function operate(operator, numOne, numTwo) {
     }
 }
 
-console.log(operate('add', 23, 33));
+const nums = document.querySelectorAll('.number-button');
+nums.forEach(num => num.addEventListener('click', displayNum));
+console.log(nums);
+
+// Display function
+function displayNum(e) {
+    const display = document.querySelector('.display');
+    const numOne = display.textContent += e.target.textContent;
+    return numOne;
+}
+
