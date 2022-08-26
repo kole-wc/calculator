@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(250, 250, 230);
+    background-color: #3f3f3f;
+    font-family: 'Nanum Gothic Coding', monospace;
 }
 
 .container {
@@ -13,11 +16,11 @@ body {
 }
 
 .calculator {
-    border: 5px solid rgb(0, 13, 126);
+    border: 10px solid #292929;
     border-radius: 25px;
     width: 500px;
     height: 600px;
-    padding: 25px;
+    padding: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas: 
@@ -25,34 +28,58 @@ body {
     'clear clear delete delete'
     ;
     grid-gap: 20px;
+    background-color: #131313;
 }
 
-.calculator div {
+.calculator div:not(.display) {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
     border-radius: 10px;
     text-align: center;
+    font-size: 30px;
 }
 
 .display {
-    justify-content: left;
     grid-area: display;
+    border-radius: 10px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 25px;
+    background-color: #5bff49d2;
+    color: #1b1b1b;
+    font-size: 50px;
 }
 
 .delete-button {
     grid-area: delete;
+    background-color: #73f193;
+    border: 5px solid rgb(70, 196, 101);
 }
 
 .clear-button {
     grid-area: clear;
+    background-color: #c7fe60;
+    border: 5px solid #a7d650;
 }
 
 .number-button {
-    
+    border: 2.5px solid #2be916;
+    color: #2be916;
 }
 
 .operator-button {
-    
+    background-color: #2be916;
+}
+
+.decimal-button {
+    color: #c7fe60;
+    border: 2.5px solid #c7fe60;
+}
+
+.enter-button {
+    border: 5px solid #03ca7e;
+    font-weight: 500;
+    background-color: #00f396;
 }
