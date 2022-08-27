@@ -1,3 +1,9 @@
+// Global node(s)
+const display = document.querySelector('.display');
+
+// Global variable(s)
+let num = 0;
+
 // Math functions
 function add(a, b) {
     return a + b;
@@ -31,14 +37,30 @@ function operate(operator, numOne, numTwo) {
     }
 }
 
-const nums = document.querySelectorAll('.number-button');
-nums.forEach(num => num.addEventListener('click', displayNum));
-console.log(nums);
+// Buttons functions
+// Number buttons
+const numButtons = document.querySelectorAll('.number-button');
+numButtons.forEach(numButton => numButton.addEventListener('click', displayNum));
+// Option buttons
+const deleteButton = document.querySelector('.delete-button')
+deleteButton.addEventListener('click', deleteNum);
 
-// Display function
+const clearButton = document.querySelector('.clear-button')
+deleteButton.addEventListener('click', clearNum);
+
+// Display function(s)
 function displayNum(e) {
-    const display = document.querySelector('.display');
-    const numOne = display.textContent += e.target.textContent;
-    return numOne;
+    num = display.textContent += e.target.textContent;
 }
+
+function deleteNum(e) {
+    num = display.textContent.slice(0, -1);
+    display.textContent = num;
+}
+
+function clearNum(e) {
+    num = "";
+    display.textContent = "";
+}
+
 

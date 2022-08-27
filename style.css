@@ -41,6 +41,7 @@ body {
     text-align: center;
     font-size: 30px;
     transition: all 0.1s ease;
+    user-select: none;
 }
 
 .calculator div:not(.display):hover {
