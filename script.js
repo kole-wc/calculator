@@ -46,21 +46,21 @@ const deleteButton = document.querySelector('.delete-button')
 deleteButton.addEventListener('click', deleteNum);
 
 const clearButton = document.querySelector('.clear-button')
-deleteButton.addEventListener('click', clearNum);
+clearButton.addEventListener('click', clearNum);
 
 // Display function(s)
 function displayNum(e) {
     num = display.textContent += e.target.textContent;
 }
 
-function deleteNum(e) {
+function deleteNum() {
     num = display.textContent.slice(0, -1);
     display.textContent = num;
 }
 
-function clearNum(e) {
+function clearNum() {
     num = "";
-    display.textContent = "";
+    display.textContent = num;
 }
 
 
