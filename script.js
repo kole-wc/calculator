@@ -33,7 +33,10 @@ function deleteNum() {
 
 function appendNumber(number) {
     // Prevent putting more than one decimal '.'
-    if (number === '.' && currentOperand.includes('.')) {
+    if (currentOperand === "Error!") {
+        currentOperand = '';
+    }
+    else if (number === '.' && currentOperand.includes('.')) {
         return;
     }
     currentOperand = currentOperand.toString() + number.toString();
@@ -41,11 +44,11 @@ function appendNumber(number) {
 
 function getOperator(operatorInputText) {
     // Prevent getting operator without an operand
-    if (currentOperand === '') {
+    if (currentOperand === '' || currentOperand === 'Error!') {
         return;
     }
     // If previous operand exists, call operate() to continue calculation
-    if (previousOperand !== '') {
+    else if (previousOperand !== '') {
         operate();
     }
     operator = operatorInputText;
@@ -55,8 +58,13 @@ function getOperator(operatorInputText) {
 
 function updateDisplay() {
     // Current
-    currentOperandText.innerText = formatDisplayNumber(currentOperand);
-
+    if (isNaN(currentOperand)) {
+        currentOperandText.innerText = currentOperand;
+    }
+    else {
+        currentOperandText.innerText = formatDisplayNumber(currentOperand);
+    }
+    
     // Previous
     if (operator != null) {
         previousOperandText.innerText = `${formatDisplayNumber(previousOperand)} ${operator}`;
@@ -70,22 +78,24 @@ function operate() {
     let result;
     const prev = parseFloat(previousOperand);
     const curr = parseFloat(currentOperand);
-    if (isNaN(prev) || isNaN(curr)) {
+    if (operator === '÷' && curr === 0) {
+        currentOperand = "Error!"
         return;
     }
-    else {
-        if (operator === '+') {
-            result = add(prev, curr);
-        }
-        else if (operator === '-') {
-            result = subtract(prev, curr);
-        }
-        else if (operator === '×') {
-            result = multiply(prev, curr);
-        }
-        else if (operator === '÷') {
-            result = divide(prev, curr);
-        }
+    else if (isNaN(prev) || isNaN(curr)) {
+        return;
+    }
+    else if (operator === '+') {
+        result = add(prev, curr);
+    }
+    else if (operator === '-') {
+        result = subtract(prev, curr);
+    }
+    else if (operator === '×') {
+        result = multiply(prev, curr);
+    }
+    else if (operator === '÷') {
+        result = divide(prev, curr);
     }
     currentOperand = result;
     operator = undefined;
