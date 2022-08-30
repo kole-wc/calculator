@@ -65,6 +65,10 @@ body {
     font-size: 25px;
 }
 
+.current-operand-error {
+    font-size: 25px;
+}
+
 .delete-button {
     grid-area: delete;
     background-color: #73f193;

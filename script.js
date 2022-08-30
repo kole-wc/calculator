@@ -25,6 +25,7 @@ function clear() {
     previousOperand = '';
     currentOperand = '';
     operator = undefined;
+    currentOperandText.classList.remove("current-operand-error")
 }
 
 function deleteNum() {
@@ -33,8 +34,8 @@ function deleteNum() {
 
 function appendNumber(number) {
     // Prevent putting more than one decimal '.'
-    if (currentOperand === "Error!") {
-        currentOperand = '';
+    if (currentOperand === "Error! You can't divide by 0. Please press clear to start again.") {
+        return;
     }
     else if (number === '.' && currentOperand.includes('.')) {
         return;
@@ -43,14 +44,19 @@ function appendNumber(number) {
 }
 
 function getOperator(operatorInputText) {
+    // Prevent getting operator if previous = "Error!" (previousOperand = currentOperand)
+    if (previousOperand === "Error! You can't divide by 0. Please press clear to start again.") {
+        return;
+    }
     // Prevent getting operator without an operand
-    if (currentOperand === '' || currentOperand === 'Error!') {
+    else if (currentOperand === '') {
         return;
     }
     // If previous operand exists, call operate() to continue calculation
     else if (previousOperand !== '') {
         operate();
     }
+    
     operator = operatorInputText;
     previousOperand = currentOperand;
     currentOperand = '';
@@ -62,12 +68,15 @@ function updateDisplay() {
         currentOperandText.innerText = currentOperand;
     }
     else {
-        currentOperandText.innerText = formatDisplayNumber(currentOperand);
+        currentOperandText.innerText = formatDisplayNumber(Math.round(currentOperand * 10000000000) / 10000000000);
     }
     
     // Previous
-    if (operator != null) {
-        previousOperandText.innerText = `${formatDisplayNumber(previousOperand)} ${operator}`;
+    if (isNaN(previousOperand)) {
+        currentOperandText.innerText = "Error! You can't divide by 0. Please press clear to start again.";
+    }
+    else if (operator != null) {
+        previousOperandText.innerText = `${formatDisplayNumber(Math.round(previousOperand * 10000000000) / 10000000000)} ${operator}`;
     }
     else {
         previousOperandText.innerText = '';
@@ -78,8 +87,10 @@ function operate() {
     let result;
     const prev = parseFloat(previousOperand);
     const curr = parseFloat(currentOperand);
+    
     if (operator === '÷' && curr === 0) {
-        currentOperand = "Error!"
+        currentOperand = "Error! You can't divide by 0. Please press clear to start again.";
+        currentOperandText.classList.add("current-operand-error")
         return;
     }
     else if (isNaN(prev) || isNaN(curr)) {
