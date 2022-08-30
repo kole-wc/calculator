@@ -20,12 +20,33 @@ function divide(a, b) {
     return a / b;
 }
 
+// Event functions
 function clear() {
     previousOperand = '';
     currentOperand = '';
     operator = undefined;
 }
 
+function deleteNum() {
+    currentOperand = currentOperand.toString().slice(0, -1);
+}
+
+function appendNumber(number) {
+    // Prevent putting more than one decimal '.'
+    if (number === '.' && currentOperand.includes('.')) {
+        return;
+    }
+    currentOperand = currentOperand.toString() + number.toString();
+}
+
+function getOperator() {
+
+}
+
+function updateDisplay() {
+    currentOperandText.innerText = currentOperand;
+}
+ 
 // Take operator to make a calculation
 function operate() {
     let result;
@@ -46,6 +67,10 @@ function operate() {
 // Buttons
 // Number buttons
 const numButtons = document.querySelectorAll('.number-button');
+numButtons.forEach(button => button.addEventListener('click', (e) => {
+    appendNumber(e.target.innerText);
+    updateDisplay();
+}));
 
 // Option buttons
 const deleteButton = document.querySelector('.delete-button');
@@ -64,5 +89,3 @@ const previousOperandText = document.querySelector('.previous-operand');
 
 // current operand
 const currentOperandText = document.querySelector('.current-operand');
-
-

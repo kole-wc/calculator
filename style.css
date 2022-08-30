@@ -63,6 +63,10 @@ body {
     font-size: 50px;
 }
 
+.previous-operand {
+    font-size: 25px;
+}
+
 .delete-button {
     grid-area: delete;
     background-color: #73f193;
