@@ -68,7 +68,12 @@ function updateDisplay() {
         currentOperandText.innerText = currentOperand;
     }
     else {
-        currentOperandText.innerText = formatDisplayNumber(Math.round(currentOperand * 10000000000) / 10000000000);
+        if (currentOperand.length < 15) {
+            currentOperandText.innerText = formatDisplayNumber(Math.round(currentOperand * 10000000000) / 10000000000);
+        }
+        else {
+            currentOperandText.innerText = formatDisplayNumber(Math.round(currentOperand * 10000000000) / 10000000000).slice(0,15) + "...";
+        }
     }
     
     // Previous
