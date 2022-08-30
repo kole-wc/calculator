@@ -3,8 +3,8 @@ const display = document.querySelector('.display');
 
 // Global variable(s)
 let numText = 0;
-let numOne = 0;
-let numTwo = 0;
+let prevousNumber = null;
+let currentNumber = null;
 let operator = 0;
 
 // Math functions
@@ -51,21 +51,18 @@ function getNumAndOperator(e) {
 
 // Take operator to make a calculation
 function operate() {
-    numTwo = display.textContent;
-    console.log(numOne);
-    console.log(numTwo);
-    console.log(operator);
+    let result;
     if (operator === '+') {
-        display.textContent = add(numOne, numTwo);
+        result = add(numOne, numTwo);
     }
     else if (operator === '-') {
-        display.textContent = subtract(numOne, numTwo);
+        result = subtract(numOne, numTwo);
     }
     else if (operator === '×') {
-        display.textContent = multiply(numOne, numTwo);
+        result = multiply(numOne, numTwo);
     }
     else if (operator === '÷') {
-        display.textContent = divide(numOne, numTwo);
+        result = divide(numOne, numTwo);
     }
 }
 
