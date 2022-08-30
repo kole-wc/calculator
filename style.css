@@ -13,8 +13,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("images/alien.png");
-    background-size: cover;
 }
 
 .calculator {

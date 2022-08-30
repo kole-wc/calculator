@@ -1,4 +1,3 @@
-// Global variable(s)
 let previousOperand = '';
 let currentOperand = '';
 let operator = undefined;
@@ -39,29 +38,57 @@ function appendNumber(number) {
     currentOperand = currentOperand.toString() + number.toString();
 }
 
-function getOperator() {
-
+function getOperator(operatorInputText) {
+    // Prevent getting operator without an operand
+    if (currentOperand === '') {
+        return;
+    }
+    // If previous operand exists, call operate() to continue calculation
+    if (previousOperand !== '') {
+        operate();
+    }
+    operator = operatorInputText;
+    previousOperand = currentOperand;
+    currentOperand = '';
 }
 
 function updateDisplay() {
+    // Current
     currentOperandText.innerText = currentOperand;
+
+    // Previous
+    if (operator != null) {
+        previousOperandText.innerText = `${previousOperand} ${operator}`;
+    }
+    else {
+        previousOperandText.innerText = '';
+    }
 }
  
-// Take operator to make a calculation
 function operate() {
     let result;
-    if (operator === '+') {
-        result = add(numOne, numTwo);
+    const prev = parseFloat(previousOperand);
+    const curr = parseFloat(currentOperand);
+    if (isNaN(prev) || isNaN(curr)) {
+        return;
     }
-    else if (operator === '-') {
-        result = subtract(numOne, numTwo);
+    else {
+        if (operator === '+') {
+            result = add(prev, curr);
+        }
+        else if (operator === '-') {
+            result = subtract(prev, curr);
+        }
+        else if (operator === '×') {
+            result = multiply(prev, curr);
+        }
+        else if (operator === '÷') {
+            result = divide(prev, curr);
+        }
     }
-    else if (operator === '×') {
-        result = multiply(numOne, numTwo);
-    }
-    else if (operator === '÷') {
-        result = divide(numOne, numTwo);
-    }
+    currentOperand = result;
+    operator = undefined;
+    previousOperand = '';
 }
 
 // Buttons
@@ -72,20 +99,36 @@ numButtons.forEach(button => button.addEventListener('click', (e) => {
     updateDisplay();
 }));
 
-// Option buttons
+// Operator buttons
+const operatorButtons = document.querySelectorAll('.operator-button');
+operatorButtons.forEach(button => button.addEventListener('click', (e) => {
+    getOperator(e.target.innerText);
+    updateDisplay();
+}));
+
+// Delete buttons
 const deleteButton = document.querySelector('.delete-button');
+deleteButton.addEventListener('click', () => {
+    deleteNum();
+    updateDisplay();
+});
 
 // Clear button
 const clearButton = document.querySelector('.clear-button');
-
-// Operator buttons
-const operatorButtons = document.querySelectorAll('.operator-button');
+clearButton.addEventListener('click', () => {
+    clear();
+    updateDisplay();
+});
 
 // Enter (calculate) button
 const enterButton = document.querySelector('.enter-button');
+enterButton.addEventListener('click', () => {
+    operate();
+    updateDisplay();
+});
 
-// previous operand
+// Previous operand
 const previousOperandText = document.querySelector('.previous-operand');
 
-// current operand
+// Current operand
 const currentOperandText = document.querySelector('.current-operand');
