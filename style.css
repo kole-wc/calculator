@@ -33,7 +33,7 @@ body {
     background-color: #131313;
 }
 
-.calculator div:not(.display) {
+.calculator div:not(.display, .display *) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@ body {
     user-select: none;
 }
 
-.calculator div:not(.display):hover {
+.calculator div:not(.display, .display *):hover {
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -53,9 +53,11 @@ body {
     grid-area: display;
     border-radius: 10px;
     display: flex;
-    justify-content: right;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
     padding: 25px;
+    height: 100px;
     background-color: #5bff49d2;
     color: #1b1b1b;
     font-size: 50px;
