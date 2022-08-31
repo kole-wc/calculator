@@ -142,33 +142,24 @@ numButtons.forEach(button => button.addEventListener('click', (e) => {
     appendNumber(e.target.innerText);
     updateDisplay();
 }));
-
-numButtons.forEach(button => button.addEventListener('click', (e) => {
-    appendNumber(e.target.innerText);
-    updateDisplay();
-}));
-
 // Operator buttons
 const operatorButtons = document.querySelectorAll('.operator-button');
 operatorButtons.forEach(button => button.addEventListener('click', (e) => {
     getOperator(e.target.innerText);
     updateDisplay();
 }));
-
 // Delete buttons
 const deleteButton = document.querySelector('.delete-button');
 deleteButton.addEventListener('click', () => {
     deleteNum();
     updateDisplay();
 });
-
 // Clear button
 const clearButton = document.querySelector('.clear-button');
 clearButton.addEventListener('click', () => {
     clear();
     updateDisplay();
 });
-
 // Enter (calculate) button
 const enterButton = document.querySelector('.enter-button');
 enterButton.addEventListener('click', () => {
@@ -176,19 +167,51 @@ enterButton.addEventListener('click', () => {
     updateDisplay();
 });
 
+// Displays
 // Previous operand
 const previousOperandText = document.querySelector('.previous-operand');
-
 // Current operand
 const currentOperandText = document.querySelector('.current-operand');
 
 // Keyboard support
 document.addEventListener('keydown', (e) => {
-    const numButtonsArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '.']
-    numButtonsArr.forEach(numButton => {
-        if (numButton === e.key) {
+    // Numbers and decimal
+    const numButtonsArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '.'];
+    numButtonsArr.forEach(button => {
+        if (button === e.key) {
             appendNumber(e.key);
             updateDisplay();
         }
     });
+    // Operations
+    const opButtonsArr = ['+', '-', '*', '/'];
+    opButtonsArr.forEach(button => {
+        if (button === e.key) {
+            if (e.key === '*') {
+                getOperator('×');
+            }
+            else if (e.key === '/') {
+                getOperator('÷');
+            }
+            else {
+                getOperator(e.key);
+            }
+            updateDisplay();
+        }
+    });
+    // Delete
+    if (e.key === 'Backspace') {
+        deleteNum();
+        updateDisplay();
+    }
+    // Clear
+    if (e.key === 'Delete') {
+        clear();
+        updateDisplay();
+    }
+    // Enter (Equal)
+    if (e.key === 'Enter') {
+        operate();
+        updateDisplay();
+    }
 });
