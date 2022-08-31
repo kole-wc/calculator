@@ -68,7 +68,7 @@ function updateDisplay() {
         currentOperandText.innerText = currentOperand;
     }
     else {
-        currentOperandText.innerText = formatDisplayNumber(Math.round(currentOperand * 10000000000) / 10000000000);
+        currentOperandText.innerText = formatDisplayNumber(currentOperand);
     }
     
     // Previous
@@ -76,7 +76,7 @@ function updateDisplay() {
         currentOperandText.innerText = "Error! You can't divide by 0. Please press clear to start again.";
     }
     else if (operator != null) {
-        previousOperandText.innerText = `${formatDisplayNumber(Math.round(previousOperand * 10000000000) / 10000000000)} ${operator}`;
+        previousOperandText.innerText = `${formatDisplayNumber(previousOperand)} ${operator}`;
     }
     else {
         previousOperandText.innerText = '';
@@ -116,7 +116,8 @@ function operate() {
 // Format functions
 // Number formatting
 function formatDisplayNumber(number) {
-    const stringNumber = number.toString();
+    const numberRound = Math.round(number * 10000000000) / 10000000000;
+    const stringNumber = numberRound.toString();
     const integerDigits = parseFloat(stringNumber.split('.')[0]);
     const decimalDigits = stringNumber.split('.')[1];
     let integerDisplay;
@@ -137,6 +138,11 @@ function formatDisplayNumber(number) {
 // Buttons
 // Number buttons
 const numButtons = document.querySelectorAll('.number-button');
+numButtons.forEach(button => button.addEventListener('click', (e) => {
+    appendNumber(e.target.innerText);
+    updateDisplay();
+}));
+
 numButtons.forEach(button => button.addEventListener('click', (e) => {
     appendNumber(e.target.innerText);
     updateDisplay();
@@ -175,3 +181,14 @@ const previousOperandText = document.querySelector('.previous-operand');
 
 // Current operand
 const currentOperandText = document.querySelector('.current-operand');
+
+// Keyboard support
+document.addEventListener('keydown', (e) => {
+    const numButtonsArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '.']
+    numButtonsArr.forEach(numButton => {
+        if (numButton === e.key) {
+            appendNumber(e.key);
+            updateDisplay();
+        }
+    });
+});
